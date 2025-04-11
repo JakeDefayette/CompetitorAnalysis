@@ -1,0 +1,499 @@
+# CompetitorWatch: Complete Project Plan
+
+## Table of Contents
+1. [Executive Summary](#executive-summary)
+2. [Masterplan Overview](#masterplan-overview)
+3. [Product Requirements Summary](#product-requirements-summary)
+4. [Actionable Development Steps](#actionable-development-steps)
+5. [Technical Implementation Notes](#technical-implementation-notes)
+
+## Executive Summary
+
+CompetitorWatch is a web-based competitive intelligence platform designed specifically for the nursing simulation products industry. The application automatically monitors competitor websites, LinkedIn profiles, and key industry figures to provide timely intelligence about market developments. 
+
+This comprehensive plan combines the high-level vision from the masterplan, the detailed specifications from the Product Requirements Document (PRD), and concrete actionable steps for implementation. It serves as the definitive reference document for the CompetitorWatch project.
+
+## Masterplan Overview
+
+### App Overview and Objectives
+
+CompetitorWatch is designed to automatically scrape competitor websites, LinkedIn profiles, and monitor key industry figures to provide timely, relevant updates about competitor activities. The primary objective is to help the business stay informed about new product launches, pricing changes, and other significant market developments in an industry characterized by short product cycles.
+
+### Target Audience
+
+The primary users will be internal team members who need competitive intelligence to inform business decisions, including:
+- Product Managers
+- Marketing Team
+- Sales Representatives
+- Executive Leadership
+
+### Core Features and Functionality
+
+1. **Automated Web Scraping**
+   - Regular monitoring of competitor websites (5-25 competitors)
+   - Focus on product pages, specifications, pricing, and new product announcements
+   - Change detection system to identify updates
+
+2. **LinkedIn Monitoring**
+   - Track company pages for official announcements
+   - Monitor key industry figures and executives from competitor companies
+   - Capture relevant posts, updates, and changes
+
+3. **Scheduled Update Delivery**
+   - Weekly email digests summarizing key findings
+   - Option to view more detailed information on the web platform
+
+4. **Analysis and Prioritization**
+   - Automatically flag major product launches
+   - Highlight pricing changes
+   - Prioritize updates based on relevance and significance
+
+5. **Visual Dashboard**
+   - Overview of recent competitor activities
+   - Charts and graphs showing trends over time
+   - Filtering capabilities by competitor, update type, etc.
+
+6. **User Management**
+   - Role-based access control
+   - User authentication and secure login
+
+### Technical Stack Recommendation
+
+1. **Full-Stack Framework**:
+   - Next.js - A comprehensive React framework that handles both frontend and backend functionality
+   - Tailwind CSS - For rapid UI development with utility-first CSS
+   - Chart.js or Recharts - For dashboard visualizations
+
+2. **Web Scraping Solution**:
+   - Firecrawl - Advanced web scraping API service that handles complex websites, dynamic content, and anti-bot measures
+   - Next.js API routes - For creating endpoints to manage scraping operations and processing data
+
+3. **Database**:
+   - MongoDB - Flexible NoSQL database that works well with scraping operations where data structures may vary
+
+4. **Infrastructure**:
+   - Vercel - For hosting the Next.js application with minimal configuration
+   - Vercel Cron Jobs or AWS Lambda - For scheduled scraping tasks
+   - Amazon SES or SendGrid for email delivery
+
+## Product Requirements Summary
+
+### Business Objectives
+1. Provide timely, accurate competitive intelligence to internal stakeholders
+2. Reduce the manual effort required to monitor competitor activities
+3. Enable data-driven decision making through organized competitor information
+4. Improve reaction time to market changes and competitor movements
+5. Centralize competitive intelligence in one accessible platform
+
+### Success Metrics
+1. 90% of relevant competitor updates captured within 24 hours of publication
+2. 80% reduction in manual competitive research time for team members
+3. Weekly active usage by intended internal stakeholders
+4. 85% user satisfaction rating in post-launch surveys
+5. Positive ROI through improved competitive positioning decisions
+
+### Functional Requirements Summary
+
+1. **Automated Web Scraping System** (High Priority)
+   - Monitor 5-25 competitor websites on a regular schedule
+   - Detect changes between monitoring cycles
+   - Store historical data for comparison
+
+2. **LinkedIn Monitoring** (Medium Priority)
+   - Track competitor company pages and key personnel
+   - Detect new hires, departures, or role changes
+   - Capture and analyze relevant posts and updates
+
+3. **Update Processing and Analysis** (High Priority)
+   - Categorize updates by type
+   - Assign importance scores
+   - Filter out insignificant changes
+
+4. **Notification System** (Medium Priority)
+   - Generate weekly email digests
+   - Allow user customization of notification preferences
+   - Support immediate notifications for critical updates
+
+5. **Visual Dashboard** (High Priority)
+   - Provide overview of recent competitor activities
+   - Visualize trends through charts and graphs
+   - Implement filtering capabilities
+
+6. **User Management** (Medium Priority)
+   - Provide secure authentication
+   - Implement role-based access control
+   - Support user profile management
+
+7. **Competitor and Product Database** (High Priority)
+   - Maintain structured database of competitors and their products
+   - Track product specifications and pricing over time
+   - Link updates to relevant competitor records
+
+### Data Model Summary
+
+1. **Competitor**: Company information including website and LinkedIn URLs
+2. **Key Person**: Information about important personnel at competitor companies
+3. **Product**: Details about competitor products including specifications and pricing
+4. **Update**: Information about detected changes including importance and categorization
+5. **User**: System user information including roles and preferences
+
+### Implementation Phases
+
+1. **Foundation** (2-3 weeks): Setup, database, authentication, basic UI
+2. **Core Functionality** (3-5 weeks): Scraping, monitoring, analysis, notifications
+3. **Dashboard and Refinement** (2-3 weeks): UI, visualization, search, filtering
+4. **Testing and Launch** (1-2 weeks): QA, optimization, documentation, training
+
+## Actionable Development Steps
+
+This section organizes tasks by logical feature sets and dependencies rather than specific timeframes, allowing for flexible resource allocation and scheduling.
+
+### Phase 1: Foundation
+
+#### Task Set 1.1: Project Setup & Infrastructure
+- [ ] Initialize Next.js project with TypeScript configuration
+- [ ] Configure ESLint and Prettier for code quality
+- [ ] Set up Git repository with branching strategy
+- [ ] Create project documentation structure
+- [ ] Configure environment variables and secrets management
+- [ ] Set up CI/CD pipeline for automated testing and deployment
+- [ ] Create Vercel project and link with repository
+- [ ] Set up MongoDB Atlas cluster with proper security settings
+
+#### Task Set 1.2: Database Schema Implementation
+- [ ] Define and implement MongoDB schema for Competitor model
+- [ ] Define and implement MongoDB schema for Key Person model
+- [ ] Define and implement MongoDB schema for Product model
+- [ ] Define and implement MongoDB schema for Update model
+- [ ] Define and implement MongoDB schema for User model
+- [ ] Create database seeding scripts for development
+- [ ] Set up database backup procedures
+
+#### Task Set 1.3: API Foundation
+- [ ] Create Next.js API routes for competitor management (CRUD)
+- [ ] Create Next.js API routes for user management (CRUD)
+- [ ] Create Next.js API routes for product management (CRUD)
+- [ ] Create Next.js API routes for update management (CRUD)
+- [ ] Implement API error handling and validation
+- [ ] Create basic API documentation
+
+#### Task Set 1.4: UI Framework & Authentication
+- [ ] Set up Tailwind CSS configuration
+- [ ] Create responsive layout components
+- [ ] Develop navigation and header components
+- [ ] Implement basic dashboard layout structure
+- [ ] Implement secure login functionality
+- [ ] Set up password reset process
+- [ ] Configure role-based access control
+- [ ] Implement session management
+- [ ] Create user profile management
+
+#### Task Set 1.5: Initial Testing & Quality Assurance
+- [ ] Write unit tests for database models
+- [ ] Write unit tests for API endpoints
+- [ ] Perform end-to-end testing of authentication flow
+- [ ] Document testing procedures
+- [ ] Implement automated tests for foundation components
+
+### Phase 2: Core Functionality
+
+#### Task Set 2.1: Web Scraping Implementation
+- [ ] Set up Firecrawl API integration
+- [ ] Create scraping configuration for target websites
+- [ ] Implement rate limiting and robots.txt compliance
+- [ ] Develop scraper factory for handling different website structures
+- [ ] Implement product page scraping functionality
+- [ ] Implement pricing data extraction
+- [ ] Implement specifications extraction
+- [ ] Create storage mechanism for scraped raw data
+- [ ] Set up Vercel Cron Jobs for scheduled scraping
+- [ ] Implement logging for scraping jobs
+- [ ] Create admin interface for managing scraping schedules
+- [ ] Implement error handling and notification for failed jobs
+
+#### Task Set 2.2: LinkedIn Monitoring
+- [ ] Research and implement LinkedIn data access method
+- [ ] Create company page monitoring functionality
+- [ ] Implement key person activity tracking
+- [ ] Set up scheduled LinkedIn data collection
+- [ ] Implement post content extraction and storage
+- [ ] Create filtering for relevant LinkedIn updates
+- [ ] Develop algorithms to detect significant personnel changes
+- [ ] Create storage mechanism for LinkedIn data
+- [ ] Link LinkedIn data with competitor profiles
+
+#### Task Set 2.3: Change Detection & Analysis
+- [ ] Implement diff algorithm for detecting website changes
+- [ ] Create change significance scoring system
+- [ ] Develop categorization logic for different update types
+- [ ] Implement historical comparison functionality
+- [ ] Create pipeline for processing raw scraped data
+- [ ] Implement update categorization system
+- [ ] Develop importance scoring algorithm
+- [ ] Create update linking to relevant competitors and products
+- [ ] Create unified data structure for website and LinkedIn updates
+- [ ] Implement combined update feed
+
+#### Task Set 2.4: Notification System
+- [ ] Implement email digest generation
+- [ ] Set up email sending with Amazon SES or SendGrid
+- [ ] Create email templates with responsive design
+- [ ] Implement email delivery tracking
+- [ ] Develop user notification preferences
+- [ ] Create scheduling for email digests
+
+#### Task Set 2.5: Integration & Testing
+- [ ] Implement unified data access layer
+- [ ] Create data aggregation services
+- [ ] Develop API endpoints for accessing processed updates
+- [ ] Implement data export functionality
+- [ ] Write integration tests for entire data pipeline
+- [ ] Optimize database queries for performance
+- [ ] Implement caching strategies
+- [ ] Conduct scraping reliability tests
+- [ ] Document all core functionality
+
+### Phase 3: Dashboard and Refinement
+
+#### Task Set 3.1: Dashboard Development
+- [ ] Implement overview dashboard with key metrics
+- [ ] Create update feed component with filtering
+- [ ] Develop competitor selector and filter components
+- [ ] Implement charts and graphs using Chart.js or Recharts
+- [ ] Create data visualization components for trends
+- [ ] Develop interactive dashboard elements
+- [ ] Implement dashboard customization features
+
+#### Task Set 3.2: Competitor Profiles
+- [ ] Create competitor profile pages
+- [ ] Implement product catalog display
+- [ ] Develop historical update timeline
+- [ ] Create key personnel listing
+- [ ] Implement competitor comparison functionality
+- [ ] Develop product detail views
+- [ ] Create visualization for competitive positioning
+
+#### Task Set 3.3: Update Details & Management
+- [ ] Implement update detail pages
+- [ ] Create before/after comparison views
+- [ ] Develop source linking functionality
+- [ ] Implement update review and notes features
+- [ ] Create update sharing functionality
+- [ ] Develop update tagging system
+- [ ] Implement update importance adjustment
+
+#### Task Set 3.4: Search & Filtering
+- [ ] Set up full-text search functionality
+- [ ] Implement advanced filtering options
+- [ ] Create saved search functionality
+- [ ] Develop search results display
+- [ ] Implement date range filtering
+- [ ] Create importance level filtering
+- [ ] Develop competitor and product filters
+- [ ] Implement update type filtering
+
+#### Task Set 3.5: User Management & Analysis Refinement
+- [ ] Implement advanced role management
+- [ ] Create activity logging
+- [ ] Develop user directory for administrators
+- [ ] Implement access restrictions based on roles
+- [ ] Fine-tune importance scoring algorithm based on testing
+- [ ] Adjust categorization rules for better accuracy
+- [ ] Implement feedback mechanism for improving analysis
+- [ ] Document algorithm refinements
+
+### Phase 4: Testing and Launch
+
+#### Task Set 4.1: Comprehensive QA
+- [ ] Conduct comprehensive functional testing
+- [ ] Perform cross-browser compatibility testing
+- [ ] Test responsive design on multiple devices
+- [ ] Conduct load testing for performance
+- [ ] Perform security testing
+- [ ] Conduct security vulnerability assessment
+- [ ] Test authentication and authorization
+- [ ] Perform penetration testing
+- [ ] Address security issues
+
+#### Task Set 4.2: Performance Optimization
+- [ ] Optimize frontend performance
+- [ ] Improve database query performance
+- [ ] Enhance API response times
+- [ ] Optimize scraping operations
+- [ ] Implement additional caching as needed
+- [ ] Optimize image and asset loading
+- [ ] Enhance user experience with performance improvements
+
+#### Task Set 4.3: Documentation & Training
+- [ ] Create user documentation and help guides
+- [ ] Develop administrator documentation
+- [ ] Create API documentation
+- [ ] Document technical architecture
+- [ ] Prepare training materials
+- [ ] Create quick reference guides
+- [ ] Document maintenance procedures
+
+#### Task Set 4.4: Launch Preparation
+- [ ] Perform final testing in production environment
+- [ ] Migrate initial data set
+- [ ] Configure monitoring and alerts
+- [ ] Establish support procedures
+- [ ] Create incident response plan
+- [ ] Set up analytics tracking
+- [ ] Plan for initial user feedback collection
+
+### Post-Launch Activities
+
+#### Task Set 5.1: Monitoring & Support
+- [ ] Monitor system performance
+- [ ] Track scraping success rates
+- [ ] Provide user support
+- [ ] Document issues and feature requests
+- [ ] Implement bug fixes
+- [ ] Add minor feature enhancements
+- [ ] Adjust scraping based on website changes
+
+#### Task Set 5.2: Future Planning
+- [ ] Gather user feedback
+- [ ] Prioritize future enhancements
+- [ ] Plan for AI-enhanced analysis features
+- [ ] Evaluate additional data sources
+- [ ] Assess scaling requirements based on usage
+- [ ] Explore integration opportunities with other internal systems
+
+### Development Dependencies
+
+The following diagram illustrates the key dependencies between task sets:
+
+```
+Phase 1: Foundation
+┌───────────────────┐
+│1.1 Project Setup  │
+└─────────┬─────────┘
+          ▼
+┌───────────────────┐
+│1.2 Database Schema│
+└─────────┬─────────┘
+          ▼
+┌───────────────────┐
+│1.3 API Foundation │◄────────┐
+└─────────┬─────────┘         │
+          ▼                    │
+┌───────────────────┐         │
+│1.4 UI & Auth      │         │
+└─────────┬─────────┘         │
+          ▼                    │
+┌───────────────────┐         │
+│1.5 Initial Testing│         │
+└─────────┬─────────┘         │
+          ▼                    │
+Phase 2: Core Functionality    │
+┌───────────────────┐         │
+│2.1 Web Scraping   │────┐    │
+└─────────┬─────────┘    │    │
+          │              │    │
+┌─────────▼─────────┐    │    │
+│2.2 LinkedIn       │    │    │
+└─────────┬─────────┘    │    │
+          ▼              ▼    │
+┌───────────────────┐    │    │
+│2.3 Change Detection│◄───┘    │
+└─────────┬─────────┘         │
+          ▼                    │
+┌───────────────────┐         │
+│2.4 Notification   │         │
+└─────────┬─────────┘         │
+          ▼                    │
+┌───────────────────┐         │
+│2.5 Integration    │─────────┘
+└─────────┬─────────┘
+          ▼
+Phase 3: Dashboard and Refinement
+┌───────────────────┐
+│3.1 Dashboard      │
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│3.2 Competitor     │◄───┐
+│    Profiles       │    │
+└─────────┬─────────┘    │
+          │              │
+┌─────────▼─────────┐    │
+│3.3 Update Details │────┘
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│3.4 Search &       │
+│    Filtering      │
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│3.5 User Management│
+│    & Refinement   │
+└─────────┬─────────┘
+          ▼
+Phase 4: Testing and Launch
+┌───────────────────┐
+│4.1 Comprehensive  │
+│    QA             │
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│4.2 Performance    │
+│    Optimization   │
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│4.3 Documentation  │
+│    & Training     │
+└─────────┬─────────┘
+          │
+┌─────────▼─────────┐
+│4.4 Launch         │
+│    Preparation    │
+└─────────┬─────────┘
+          ▼
+Post-Launch Activities
+```
+
+## Technical Implementation Notes
+
+### Web Scraping Implementation Details
+- Use Firecrawl's session-based scraping to handle dynamic content
+- Implement custom extractors for different website patterns
+- Store raw HTML snapshots for verification and debugging
+- Use checksums to quickly identify changed pages
+- Implement proxy rotation if needed to avoid rate limiting
+
+### MongoDB Schema Optimization
+- Use appropriate indexes for frequent query patterns
+- Implement TTL indexes for temporary data
+- Consider schema design that optimizes for read operations
+- Use MongoDB Atlas Search for text search functionality
+
+### Next.js Implementation
+- Utilize Next.js API routes for backend functionality
+- Implement SSR for dashboard pages requiring authentication
+- Use ISR (Incremental Static Regeneration) for competitor profiles
+- Leverage Next.js middleware for authentication
+
+### Security Implementation
+- Store sensitive credentials in environment variables
+- Implement proper CORS policies
+- Use JWT with appropriate expiration for authentication
+- Sanitize all user inputs
+- Implement rate limiting on API endpoints
+- Use HTTPS for all connections
+- Regularly update dependencies
+
+### Testing Strategy
+- Unit tests for core business logic
+- Integration tests for data pipeline
+- E2E tests for critical user flows
+- Visual regression tests for dashboard components
+- Load testing for concurrent user simulation
+- Security testing focusing on authentication and authorization
+
+---
+
+This comprehensive project plan combines the high-level vision from the masterplan, the detailed specifications from the PRD, and concrete actionable steps for implementation. It serves as the definitive reference document for the CompetitorWatch project.

@@ -1,0 +1,20 @@
+# Task ID: 2
+# Title: Implement Core Database Models
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Define and implement MongoDB schemas for all required data models including Competitor, Key Person, Product, Update, and User.
+# Details:
+1. Create Mongoose schemas for each model with proper validation:
+   - Competitor: name, website, LinkedIn URL, description, status
+   - Key Person: name, title, company (ref to Competitor), LinkedIn URL
+   - Product: name, description, specs, pricing, competitor (ref)
+   - Update: type, source, content, timestamp, importance, competitor (ref)
+   - User: email, password (hashed), role, notification preferences
+2. Implement model relationships and references
+3. Create indexes for frequently queried fields
+4. Add timestamps for created/updated tracking
+5. Create database seeding script with sample data for development
+
+# Test Strategy:
+Write unit tests for each model to verify schema validation, required fields, and relationships. Test CRUD operations on each model to ensure proper functionality.
