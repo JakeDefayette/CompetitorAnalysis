@@ -1,6 +1,6 @@
 # Task ID: 2
 # Title: Implement Core Database Models
-# Status: pending
+# Status: done
 # Dependencies: 1
 # Priority: high
 # Description: Define and implement MongoDB schemas for all required data models including Competitor, Key Person, Product, Update, and User.
@@ -18,3 +18,122 @@
 
 # Test Strategy:
 Write unit tests for each model to verify schema validation, required fields, and relationships. Test CRUD operations on each model to ensure proper functionality.
+
+# Subtasks:
+## 1. Define and implement basic Mongoose schemas with validation [done]
+### Dependencies: None
+### Description: Create the core schema definitions for all five models (Competitor, Key Person, Product, Update, User) with proper field validation and basic structure.
+### Details:
+Implementation steps:
+1. Set up the MongoDB connection in a database config file
+2. Create a models directory with separate files for each schema
+3. For each model, define the schema with appropriate data types and validation:
+   - Competitor: name (required, string), website (string, URL validation), LinkedIn URL (string, URL validation), description (string), status (enum: active, inactive, potential)
+   - Key Person: name (required, string), title (string), LinkedIn URL (string, URL validation)
+   - Product: name (required, string), description (string), specs (mixed or object), pricing (string or number)
+   - Update: type (enum: news, event, etc.), source (string), content (required, string), timestamp (date, default to now), importance (number, 1-5)
+   - User: email (required, string, unique, email validation), password (required, string, min length), role (enum: admin, user, readonly), notification preferences (object)
+4. Add created/updated timestamps to all schemas using Mongoose timestamps option
+5. Export each model
+
+Testing approach:
+- Write unit tests for each model to verify validation rules work correctly
+- Test that required fields throw appropriate errors when missing
+- Test that enum fields only accept valid values
+- Verify timestamp fields are automatically populated
+
+## 2. Implement model relationships and create indexes [done]
+### Dependencies: 2.1
+### Description: Add references between models to establish relationships and create appropriate indexes for query optimization.
+### Details:
+Implementation steps:
+1. Update schemas to include references between models:
+   - Key Person: Add competitor field as ObjectId with ref to 'Competitor' model
+   - Product: Add competitor field as ObjectId with ref to 'Competitor' model
+   - Update: Add competitor field as ObjectId with ref to 'Competitor' model
+2. Create indexes for frequently queried fields:
+   - Competitor: Create index on name and status fields
+   - Key Person: Create index on name and competitor fields
+   - Product: Create index on name and competitor fields
+   - Update: Create indexes on timestamp, importance, and competitor fields
+   - User: Create unique index on email field
+3. Add validation to ensure referenced IDs exist where appropriate
+4. Update model exports to include the new references
+5. Document the relationships in comments or separate documentation
+
+Testing approach:
+- Test that references can be populated correctly using Mongoose populate
+- Verify that indexes are created by examining the MongoDB collections
+- Test query performance with and without indexes to confirm improvement
+- Ensure validation works for references (e.g., can't add invalid competitor IDs)
+
+## 3. Create database seeding script with sample data [done]
+### Dependencies: 2.1, 2.2
+### Description: Develop a script to populate the database with sample data for development and testing purposes.
+### Details:
+Implementation steps:
+1. Create a seeds directory with a main seeding script
+2. Generate realistic sample data for each model:
+   - At least 5 competitors with different statuses
+   - 2-3 key persons for each competitor
+   - 2-4 products for each competitor
+   - 5-10 updates per competitor with varying importance levels
+   - 3-5 user accounts with different roles
+3. Implement the seeding logic:
+   - Clear existing data before seeding (with a safety check for production)
+   - Create competitors first
+   - Use the created competitor IDs to create related key persons, products, and updates
+   - Create user accounts
+4. Add command-line options to control seeding behavior (e.g., --clear, --environment)
+5. Add logging to track seeding progress and results
+
+Testing approach:
+- Run the seeding script in a test environment
+- Verify all relationships are correctly established
+- Check that the expected number of documents are created for each model
+- Test that the script can be run multiple times without errors
+- Verify that sample data meets all validation requirements
+
+## 4. Create Competitor, Key Person and User Schemas [done]
+### Dependencies: None
+### Description: Implement the first set of MongoDB schemas using Mongoose, focusing on the core entities: Competitor, Key Person, and User models with proper validation and relationships.
+### Details:
+1. Set up the database connection configuration in a separate module.
+2. Create the Competitor schema with fields: name (required), website, LinkedIn URL, description, status, and timestamps.
+3. Create the Key Person schema with fields: name (required), title, company (reference to Competitor using ObjectId), LinkedIn URL, and timestamps.
+4. Create the User schema with fields: email (required, unique), password (required, implement hashing using bcrypt), role (enum with admin/user options), notification preferences (object), and timestamps.
+5. Add appropriate validation for each field (e.g., URL format for websites, email format).
+6. Implement indexes for frequently queried fields: Competitor.name, KeyPerson.name, User.email.
+7. Export the models using mongoose.model().
+8. Write unit tests for each schema to verify validation rules work correctly.
+
+## 5. Create Product and Update Schemas [done]
+### Dependencies: 2.4
+### Description: Implement the remaining MongoDB schemas using Mongoose for Product and Update models with proper validation, relationships, and indexing.
+### Details:
+1. Create the Product schema with fields: name (required), description, specs (as a nested object or array), pricing (as a nested object with different pricing tiers), competitor (reference to Competitor using ObjectId), and timestamps.
+2. Create the Update schema with fields: type (enum with categories like 'news', 'product', 'personnel'), source (URL), content (text), timestamp (Date), importance (number 1-5), competitor (reference to Competitor using ObjectId), and timestamps for created/updated.
+3. Add appropriate validation for each field.
+4. Implement indexes for frequently queried fields: Product.name, Product.competitor, Update.type, Update.competitor, Update.importance.
+5. Ensure proper references between models are established.
+6. Export the models using mongoose.model().
+7. Write unit tests for each schema to verify validation rules and relationships work correctly.
+
+## 6. Create Database Seeding Script [done]
+### Dependencies: 2.4, 2.5
+### Description: Develop a database seeding script that populates the database with sample data for all models to facilitate development and testing.
+### Details:
+1. Create a seeding module that can be run independently or as part of the application startup in development mode.
+2. Implement functions to clear existing data from all collections.
+3. Create sample data for each model:
+   - At least 5 competitors with varied statuses
+   - 2-3 key persons for each competitor
+   - 3-5 products for each competitor with different pricing structures
+   - 10-15 updates of different types and importance levels
+   - 3-4 users with different roles and notification preferences
+4. Ensure references between models are correctly established (e.g., key persons reference the correct competitor).
+5. Implement proper error handling and logging.
+6. Add a command-line interface to run the seeder with options (e.g., '--fresh' to clear existing data).
+7. Write integration tests to verify the seeder correctly populates the database and relationships are maintained.
+8. Document the seeding process in a README file or code comments.
+

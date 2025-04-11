@@ -48,13 +48,79 @@
       "id": 2,
       "title": "Implement Core Database Models",
       "description": "Define and implement MongoDB schemas for all required data models including Competitor, Key Person, Product, Update, and User.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         1
       ],
       "priority": "high",
       "details": "1. Create Mongoose schemas for each model with proper validation:\n   - Competitor: name, website, LinkedIn URL, description, status\n   - Key Person: name, title, company (ref to Competitor), LinkedIn URL\n   - Product: name, description, specs, pricing, competitor (ref)\n   - Update: type, source, content, timestamp, importance, competitor (ref)\n   - User: email, password (hashed), role, notification preferences\n2. Implement model relationships and references\n3. Create indexes for frequently queried fields\n4. Add timestamps for created/updated tracking\n5. Create database seeding script with sample data for development",
-      "testStrategy": "Write unit tests for each model to verify schema validation, required fields, and relationships. Test CRUD operations on each model to ensure proper functionality."
+      "testStrategy": "Write unit tests for each model to verify schema validation, required fields, and relationships. Test CRUD operations on each model to ensure proper functionality.",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define and implement basic Mongoose schemas with validation",
+          "description": "Create the core schema definitions for all five models (Competitor, Key Person, Product, Update, User) with proper field validation and basic structure.",
+          "dependencies": [],
+          "details": "Implementation steps:\n1. Set up the MongoDB connection in a database config file\n2. Create a models directory with separate files for each schema\n3. For each model, define the schema with appropriate data types and validation:\n   - Competitor: name (required, string), website (string, URL validation), LinkedIn URL (string, URL validation), description (string), status (enum: active, inactive, potential)\n   - Key Person: name (required, string), title (string), LinkedIn URL (string, URL validation)\n   - Product: name (required, string), description (string), specs (mixed or object), pricing (string or number)\n   - Update: type (enum: news, event, etc.), source (string), content (required, string), timestamp (date, default to now), importance (number, 1-5)\n   - User: email (required, string, unique, email validation), password (required, string, min length), role (enum: admin, user, readonly), notification preferences (object)\n4. Add created/updated timestamps to all schemas using Mongoose timestamps option\n5. Export each model\n\nTesting approach:\n- Write unit tests for each model to verify validation rules work correctly\n- Test that required fields throw appropriate errors when missing\n- Test that enum fields only accept valid values\n- Verify timestamp fields are automatically populated",
+          "status": "done",
+          "parentTaskId": 2
+        },
+        {
+          "id": 2,
+          "title": "Implement model relationships and create indexes",
+          "description": "Add references between models to establish relationships and create appropriate indexes for query optimization.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implementation steps:\n1. Update schemas to include references between models:\n   - Key Person: Add competitor field as ObjectId with ref to 'Competitor' model\n   - Product: Add competitor field as ObjectId with ref to 'Competitor' model\n   - Update: Add competitor field as ObjectId with ref to 'Competitor' model\n2. Create indexes for frequently queried fields:\n   - Competitor: Create index on name and status fields\n   - Key Person: Create index on name and competitor fields\n   - Product: Create index on name and competitor fields\n   - Update: Create indexes on timestamp, importance, and competitor fields\n   - User: Create unique index on email field\n3. Add validation to ensure referenced IDs exist where appropriate\n4. Update model exports to include the new references\n5. Document the relationships in comments or separate documentation\n\nTesting approach:\n- Test that references can be populated correctly using Mongoose populate\n- Verify that indexes are created by examining the MongoDB collections\n- Test query performance with and without indexes to confirm improvement\n- Ensure validation works for references (e.g., can't add invalid competitor IDs)",
+          "status": "done",
+          "parentTaskId": 2
+        },
+        {
+          "id": 3,
+          "title": "Create database seeding script with sample data",
+          "description": "Develop a script to populate the database with sample data for development and testing purposes.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Implementation steps:\n1. Create a seeds directory with a main seeding script\n2. Generate realistic sample data for each model:\n   - At least 5 competitors with different statuses\n   - 2-3 key persons for each competitor\n   - 2-4 products for each competitor\n   - 5-10 updates per competitor with varying importance levels\n   - 3-5 user accounts with different roles\n3. Implement the seeding logic:\n   - Clear existing data before seeding (with a safety check for production)\n   - Create competitors first\n   - Use the created competitor IDs to create related key persons, products, and updates\n   - Create user accounts\n4. Add command-line options to control seeding behavior (e.g., --clear, --environment)\n5. Add logging to track seeding progress and results\n\nTesting approach:\n- Run the seeding script in a test environment\n- Verify all relationships are correctly established\n- Check that the expected number of documents are created for each model\n- Test that the script can be run multiple times without errors\n- Verify that sample data meets all validation requirements",
+          "status": "done",
+          "parentTaskId": 2
+        },
+        {
+          "id": 4,
+          "title": "Create Competitor, Key Person and User Schemas",
+          "description": "Implement the first set of MongoDB schemas using Mongoose, focusing on the core entities: Competitor, Key Person, and User models with proper validation and relationships.",
+          "dependencies": [],
+          "details": "1. Set up the database connection configuration in a separate module.\n2. Create the Competitor schema with fields: name (required), website, LinkedIn URL, description, status, and timestamps.\n3. Create the Key Person schema with fields: name (required), title, company (reference to Competitor using ObjectId), LinkedIn URL, and timestamps.\n4. Create the User schema with fields: email (required, unique), password (required, implement hashing using bcrypt), role (enum with admin/user options), notification preferences (object), and timestamps.\n5. Add appropriate validation for each field (e.g., URL format for websites, email format).\n6. Implement indexes for frequently queried fields: Competitor.name, KeyPerson.name, User.email.\n7. Export the models using mongoose.model().\n8. Write unit tests for each schema to verify validation rules work correctly.",
+          "status": "done",
+          "parentTaskId": 2
+        },
+        {
+          "id": 5,
+          "title": "Create Product and Update Schemas",
+          "description": "Implement the remaining MongoDB schemas using Mongoose for Product and Update models with proper validation, relationships, and indexing.",
+          "dependencies": [
+            4
+          ],
+          "details": "1. Create the Product schema with fields: name (required), description, specs (as a nested object or array), pricing (as a nested object with different pricing tiers), competitor (reference to Competitor using ObjectId), and timestamps.\n2. Create the Update schema with fields: type (enum with categories like 'news', 'product', 'personnel'), source (URL), content (text), timestamp (Date), importance (number 1-5), competitor (reference to Competitor using ObjectId), and timestamps for created/updated.\n3. Add appropriate validation for each field.\n4. Implement indexes for frequently queried fields: Product.name, Product.competitor, Update.type, Update.competitor, Update.importance.\n5. Ensure proper references between models are established.\n6. Export the models using mongoose.model().\n7. Write unit tests for each schema to verify validation rules and relationships work correctly.",
+          "status": "done",
+          "parentTaskId": 2
+        },
+        {
+          "id": 6,
+          "title": "Create Database Seeding Script",
+          "description": "Develop a database seeding script that populates the database with sample data for all models to facilitate development and testing.",
+          "dependencies": [
+            4,
+            5
+          ],
+          "details": "1. Create a seeding module that can be run independently or as part of the application startup in development mode.\n2. Implement functions to clear existing data from all collections.\n3. Create sample data for each model:\n   - At least 5 competitors with varied statuses\n   - 2-3 key persons for each competitor\n   - 3-5 products for each competitor with different pricing structures\n   - 10-15 updates of different types and importance levels\n   - 3-4 users with different roles and notification preferences\n4. Ensure references between models are correctly established (e.g., key persons reference the correct competitor).\n5. Implement proper error handling and logging.\n6. Add a command-line interface to run the seeder with options (e.g., '--fresh' to clear existing data).\n7. Write integration tests to verify the seeder correctly populates the database and relationships are maintained.\n8. Document the seeding process in a README file or code comments.",
+          "status": "done",
+          "parentTaskId": 2
+        }
+      ]
     },
     {
       "id": 3,
